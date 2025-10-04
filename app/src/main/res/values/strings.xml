@@ -13,4 +13,22 @@
     <string name="title_blogs">Blogs</string>
     <string name="title_my">My</string>
     <string name="add_new_post">add_new_post</string>
+
+    <!-- My Page Section Titles -->
+    <string name="my_page_display_name_placeholder">Display Name</string>
+    <string name="my_page_email_placeholder">user@example.com</string>
+    <string name="my_page_edit_profile">Edit Profile</string>
+    <string name="my_page_account_security">Account &amp; Security</string>
+    <string name="my_page_drafts">Drafts</string>
+    <string name="my_page_reading_history">Reading History</string>
+    <string name="my_page_likes">Likes</string>
+    <string name="my_page_following">Following</string>
+    <string name="my_page_sign_out">Sign Out</string>
+
+    <!-- Content Descriptions & Messages -->
+    <string name="my_page_avatar_description">User Avatar</string>
+    <string name="my_page_upload_success">Avatar updated successfully.</string>
+    <string name="my_page_upload_failure">Avatar upload failed.</string>
+    <string name="my_page_profile_load_failure">Failed to load profile.</string>
+    <string name="my_page_permission_denied">Permission denied. Cannot select image.</string>
 </resources>

@@ -35,8 +35,11 @@ android {
 dependencies {
     implementation platform(libs.firebase.bom)
     implementation libs.firebase.analytics
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.storage)
     implementation(libs.firebase.auth)
     implementation libs.appcompat
+    implementation(libs.glide)
     implementation libs.material
     implementation libs.constraintlayout
     implementation libs.lifecycle.livedata.ktx
