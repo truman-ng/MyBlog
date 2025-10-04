@@ -1,12 +1,11 @@
 package com.segi.student.blog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.segi.student.blog.databinding.ActivityAuthBinding; // Make sure this matches your package
@@ -30,10 +29,8 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void setupUI() {
-        // Set default selection
         binding.toggleButtonGroup.check(binding.buttonLoginToggle.getId());
 
-        // Toggle between Login and Sign Up
         binding.toggleButtonGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
             if (isChecked) {
                 isLoginMode = checkedId == binding.buttonLoginToggle.getId();
@@ -41,10 +38,8 @@ public class AuthActivity extends AppCompatActivity {
             }
         });
 
-        // Main action button click
         binding.buttonAction.setOnClickListener(v -> performAuthentication());
 
-        // Handle "Done" on keyboard
         binding.passwordEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 performAuthentication();
@@ -61,14 +56,13 @@ public class AuthActivity extends AppCompatActivity {
                     setLoading(true);
                     break;
                 case SUCCESS:
-                    setLoading(false);
-                    // Navigate to your main activity or show success message
-                    Snackbar.make(binding.getRoot(), isLoginMode ? "Login successful!" : "Sign up successful!", Snackbar.LENGTH_LONG).show();
-                    // Example: finish();
+                    // When authentication is successful, send the user to MainActivity
+                    sendUserToMainActivity();
                     break;
                 case ERROR:
                     setLoading(false);
-                    break; // Error message is handled by its own observer
+                    // Error message is handled by its own observer
+                    break;
                 case IDLE:
                     setLoading(false);
                     break;
@@ -87,7 +81,6 @@ public class AuthActivity extends AppCompatActivity {
         String email = binding.emailEditText.getText().toString().trim();
         String password = binding.passwordEditText.getText().toString();
 
-        // Basic validation
         binding.emailLayout.setError(null);
         if (email.isEmpty()) {
             binding.emailLayout.setError("Email cannot be empty");
@@ -101,9 +94,19 @@ public class AuthActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Navigates the user to MainActivity after a successful login/sign-up.
+     */
+    private void sendUserToMainActivity() {
+        Intent mainIntent = new Intent(AuthActivity.this, MainActivity.class);
+        // Clear the back stack so the user cannot navigate back to the AuthActivity
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish(); // Finish AuthActivity
+    }
+
     private void updateFormUI() {
         binding.buttonAction.setText(isLoginMode ? "Login" : "Sign Up");
-        // Clear errors when toggling
         binding.emailLayout.setError(null);
         binding.passwordLayout.setError(null);
     }
