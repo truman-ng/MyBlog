@@ -191,7 +191,7 @@ dependencies {
 1. **Clone**
 
 ```bash
-git clone https://github.com/your-username/MyBlog.git
+git clone https://github.com/truman-ng/MyBlog.git
 ```
 
 2. **Configure Firebase**
@@ -397,7 +397,7 @@ dependencies {
 1）**克隆项目**
 
 ```bash
-git clone https://github.com/your-username/MyBlog.git
+git clone https://github.com/truman-ng/MyBlog.git
 ```
 
 2）**配置 Firebase**
