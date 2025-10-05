@@ -137,7 +137,7 @@
             app:tint="?attr/colorOnSecondaryContainer"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_to_reading_list_button"
+            android:id="@+id/bookmark_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_bookmark_add"

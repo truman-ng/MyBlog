@@ -148,6 +148,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"/>
+                <include layout="@layout/my_page_list_item" android:id="@+id/item_bookmarks"/>
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"/>
                 <include layout="@layout/my_page_list_item" android:id="@+id/item_likes"/>
                 <com.google.android.material.divider.MaterialDivider
                     android:layout_width="match_parent"

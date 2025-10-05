@@ -22,6 +22,7 @@
     <string name="my_page_drafts">Drafts</string>
     <string name="my_page_reading_history">Reading History</string>
     <string name="my_page_likes">Likes</string>
+    <string name="my_page_bookmarks">Bookmarks</string>
     <string name="my_page_following">Following</string>
     <string name="my_page_sign_out">Sign Out</string>
 

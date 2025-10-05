@@ -1,0 +1,64 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="640dp"
+    android:viewportWidth="360"
+    android:viewportHeight="640">
+
+    <!-- 背景色（超浅紫） -->
+    <path
+        android:fillColor="#F6F3FF"
+        android:pathData="M0,0 H360 V640 H0 Z" />
+
+    <!-- 左上角柔和流体块 -->
+    <path
+        android:fillColor="#E5DCFF"
+        android:fillAlpha="0.9"
+        android:pathData="
+            M24,42
+            C20,24 44,12 70,16
+            C96,20 118,36 116,56
+            C114,76 92,90 72,92
+            C52,94 28,60 24,42 Z" />
+
+    <!-- 右下角大流体块 -->
+    <path
+        android:fillColor="#CDBDFF"
+        android:fillAlpha="0.9"
+        android:pathData="
+            M208,470
+            C248,438 308,438 334,462
+            C360,485 360,528 338,560
+            C316,591 276,610 236,606
+            C196,602 160,576 158,544
+            C156,512 168,492 208,470 Z" />
+
+    <!-- 右上角主色圆点 -->
+    <path
+        android:fillColor="#6C4CF1"
+        android:pathData="
+            M320,86
+            a14,14 0 1,0 0.1,0 Z" />
+
+    <!-- 右上角九宫格小点（3x3） -->
+    <group android:translateX="268" android:translateY="40">
+        <path android:fillColor="#D9CEFF" android:pathData="M0,0 a2,2 0 1,0 0.1,0 Z" />
+        <path android:fillColor="#D9CEFF" android:pathData="M12,0 a2,2 0 1,0 0.1,0 Z" />
+        <path android:fillColor="#D9CEFF" android:pathData="M24,0 a2,2 0 1,0 0.1,0 Z" />
+
+        <path android:fillColor="#D9CEFF" android:pathData="M0,12 a2,2 0 1,0 0.1,0 Z" />
+        <path android:fillColor="#D9CEFF" android:pathData="M12,12 a2,2 0 1,0 0.1,0 Z" />
+        <path android:fillColor="#D9CEFF" android:pathData="M24,12 a2,2 0 1,0 0.1,0 Z" />
+
+        <path android:fillColor="#D9CEFF" android:pathData="M0,24 a2,2 0 1,0 0.1,0 Z" />
+        <path android:fillColor="#D9CEFF" android:pathData="M12,24 a2,2 0 1,0 0.1,0 Z" />
+        <path android:fillColor="#D9CEFF" android:pathData="M24,24 a2,2 0 1,0 0.1,0 Z" />
+    </group>
+
+    <!-- 低不透明度的细弧线，增加层次 -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#DCCFFF"
+        android:strokeAlpha="0.6"
+        android:strokeWidth="0.8"
+        android:pathData="M40,320 C160,300 220,340 320,320" />
+</vector>

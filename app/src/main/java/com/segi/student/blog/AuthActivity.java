@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.segi.student.blog.databinding.ActivityAuthBinding; // Make sure this matches your package
 
@@ -24,22 +23,24 @@ public class AuthActivity extends AppCompatActivity {
 
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
-        setupUI();
+        // Set the initial UI state
+        updateUiForMode();
+
+        setupClickListeners();
         observeViewModel();
     }
 
-    private void setupUI() {
-        binding.toggleButtonGroup.check(binding.buttonLoginToggle.getId());
-
-        binding.toggleButtonGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if (isChecked) {
-                isLoginMode = checkedId == binding.buttonLoginToggle.getId();
-                updateFormUI();
-            }
+    private void setupClickListeners() {
+        // Listener for the new text-based toggle
+        binding.toggleText.setOnClickListener(v -> {
+            isLoginMode = !isLoginMode; // Switch the mode
+            updateUiForMode();
         });
 
+        // Listener for the main action button (Login/Sign Up)
         binding.buttonAction.setOnClickListener(v -> performAuthentication());
 
+        // Listener for the "Done" button on the keyboard
         binding.passwordEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 performAuthentication();
@@ -82,8 +83,15 @@ public class AuthActivity extends AppCompatActivity {
         String password = binding.passwordEditText.getText().toString();
 
         binding.emailLayout.setError(null);
+        binding.passwordLayout.setError(null);
+
+        // Basic validation
         if (email.isEmpty()) {
             binding.emailLayout.setError("Email cannot be empty");
+            return;
+        }
+        if (password.isEmpty()){
+            binding.passwordLayout.setError("Password cannot be empty");
             return;
         }
 
@@ -99,24 +107,39 @@ public class AuthActivity extends AppCompatActivity {
      */
     private void sendUserToMainActivity() {
         Intent mainIntent = new Intent(AuthActivity.this, MainActivity.class);
-        // Clear the back stack so the user cannot navigate back to the AuthActivity
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish(); // Finish AuthActivity
     }
 
-    private void updateFormUI() {
-        binding.buttonAction.setText(isLoginMode ? "Login" : "Sign Up");
+    /**
+     * Updates all UI text based on whether the user is logging in or signing up.
+     */
+    private void updateUiForMode() {
+        if (isLoginMode) {
+            binding.subtitleText.setText("Welcome back! Please log in.");
+            binding.buttonAction.setText("Login");
+            binding.toggleText.setText("Don't have an account? Sign Up");
+        } else {
+            binding.subtitleText.setText("Create a new account to get started.");
+            binding.buttonAction.setText("Sign Up");
+            binding.toggleText.setText("Already have an account? Login");
+        }
+        // Clear any previous errors
         binding.emailLayout.setError(null);
         binding.passwordLayout.setError(null);
     }
 
+    /**
+     * Manages the UI state when a network request is in progress.
+     */
     private void setLoading(boolean isLoading) {
         binding.progressIndicator.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        // Hide the button text while loading
         binding.buttonAction.setText(isLoading ? "" : (isLoginMode ? "Login" : "Sign Up"));
         binding.buttonAction.setEnabled(!isLoading);
         binding.emailEditText.setEnabled(!isLoading);
         binding.passwordEditText.setEnabled(!isLoading);
-        binding.toggleButtonGroup.setEnabled(!isLoading);
+        binding.toggleText.setEnabled(!isLoading); // Disable the toggle text as well
     }
 }

@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_blogs">
+    <action android:id="@+id/action_global_to_blogDetail"
+        app:destination="@id/navigation_blog_detail"/>
 
     <fragment
         android:id="@+id/navigation_blogs"
@@ -11,9 +13,9 @@
         android:label="@string/title_blogs"
         tools:layout="@layout/fragment_blogs">
 
-    <action
-        android:id="@+id/action_blogs_to_blogDetail"
-        app:destination="@id/navigation_blog_detail" />
+        <action
+            android:id="@+id/action_blogs_to_blogDetail"
+            app:destination="@id/navigation_blog_detail" />
     </fragment>
 
     <fragment
@@ -31,9 +33,49 @@
         <action
             android:id="@+id/action_myFragment_to_draftsFragment"
             app:destination="@id/navigation_drafts" />
+        <!-- ACTION 1: To Reading History -->
+        <action
+            android:id="@+id/action_myFragment_to_readingHistory"
+            app:destination="@id/navigation_post_list">
+            <argument
+                android:name="listMode"
+                android:defaultValue="READING_HISTORY" />
+        </action>
 
+        <!-- ACTION 2: To Bookmarks -->
+        <action
+            android:id="@+id/action_myFragment_to_bookmarks"
+            app:destination="@id/navigation_post_list">
+            <argument
+                android:name="listMode"
+                android:defaultValue="BOOKMARKS" />
+        </action>
+        <!-- NEW ACTION for Following List -->
+        <action
+            android:id="@+id/action_myFragment_to_followingList"
+            app:destination="@id/navigation_user_list">
+            <argument
+                android:name="listMode"
+                android:defaultValue="FOLLOWING" />
+        </action>
+        <action
+            android:id="@+id/action_myFragment_to_likes"
+            app:destination="@id/navigation_post_list">
+            <argument
+                android:name="listMode"
+                android:defaultValue="LIKES" />
+        </action>
     </fragment>
-
+    <!-- NEW DESTINATION for our reusable fragment -->
+    <fragment
+        android:id="@+id/navigation_post_list"
+        android:name="com.segi.student.blog.ui.my.PostListFragment"
+        android:label="List"
+        tools:layout="@layout/fragment_post_list">
+        <argument
+            android:name="listMode"
+            app:argType="com.segi.student.blog.ui.my.PostListViewModel$ListMode" />
+    </fragment>
     <!-- NEW: Blog Detail Fragment Destination -->
     <fragment
         android:id="@+id/navigation_blog_detail"
@@ -56,7 +98,16 @@
         android:name="com.segi.student.blog.ui.my.AccountSecurityFragment"
         android:label="Account &amp; Security"
         tools:layout="@layout/fragment_account_security" />
-
+    <!-- NEW DESTINATION for our reusable UserListFragment -->
+    <fragment
+        android:id="@+id/navigation_user_list"
+        android:name="com.segi.student.blog.ui.my.UserListFragment"
+        android:label="Users"
+        tools:layout="@layout/fragment_post_list" > <!-- It uses the post list layout -->
+        <argument
+            android:name="listMode"
+            app:argType="com.segi.student.blog.ui.my.UserListViewModel$ListMode" />
+    </fragment>
     <!-- 新增: 草稿箱 Fragment 的 Destination -->
     <fragment
         android:id="@+id/navigation_drafts"

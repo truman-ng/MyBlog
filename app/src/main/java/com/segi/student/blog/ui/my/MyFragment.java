@@ -70,6 +70,7 @@ public class MyFragment extends Fragment {
         setupListItem(binding.itemAccountSecurity.getRoot(), R.drawable.ic_security, R.string.my_page_account_security);
         setupListItem(binding.itemDrafts.getRoot(), R.drawable.ic_drafts, R.string.my_page_drafts);
         setupListItem(binding.itemReadingHistory.getRoot(), R.drawable.ic_history, R.string.my_page_reading_history);
+        setupListItem(binding.itemBookmarks.getRoot(), R.drawable.ic_bookmark_filled, R.string.my_page_bookmarks);
         setupListItem(binding.itemLikes.getRoot(), R.drawable.ic_thumb_up, R.string.my_page_likes);
         setupListItem(binding.itemFollowing.getRoot(), R.drawable.ic_people, R.string.my_page_following);
         setupListItem(binding.itemSignOut.getRoot(), R.drawable.ic_logout, R.string.my_page_sign_out);
@@ -107,6 +108,23 @@ public class MyFragment extends Fragment {
             // 使用我们在 navigation.xml 中定义的 action ID 来执行导航
             NavHostFragment.findNavController(MyFragment.this)
                     .navigate(R.id.action_myFragment_to_draftsFragment);
+        });
+        binding.itemReadingHistory.getRoot().setOnClickListener(v -> {
+            NavHostFragment.findNavController(MyFragment.this)
+                    .navigate(R.id.action_myFragment_to_readingHistory);
+        });
+        binding.itemBookmarks.getRoot().setOnClickListener(v -> {
+            NavHostFragment.findNavController(MyFragment.this)
+                    .navigate(R.id.action_myFragment_to_bookmarks);
+        });
+
+        binding.itemLikes.getRoot().setOnClickListener(v -> {
+            NavHostFragment.findNavController(MyFragment.this)
+                    .navigate(R.id.action_myFragment_to_likes);
+        });
+        binding.itemFollowing.getRoot().setOnClickListener(v -> {
+            NavHostFragment.findNavController(MyFragment.this)
+                    .navigate(R.id.action_myFragment_to_followingList);
         });
     }
 

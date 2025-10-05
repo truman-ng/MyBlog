@@ -1,5 +1,7 @@
 package com.segi.student.blog.ui.detail;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -23,7 +25,7 @@ public class BlogDetailViewModel extends ViewModel {
     public static class InteractionState {
         public boolean isLiked = false;
         public boolean isFollowing = false;
-        public boolean isInReadingList = false;
+        public boolean isBookmarked = false;
         public boolean isOwnPost = false;
     }
 
@@ -68,6 +70,8 @@ public class BlogDetailViewModel extends ViewModel {
                     if (authorId != null) {
                         fetchAuthorDetails();
                         checkInteractionStates();
+                        // --- NEW: Automatically log to reading history ---
+                        logReadingHistory();
                     }
                 } else {
                     _error.setValue("Post not found.");
@@ -80,14 +84,32 @@ public class BlogDetailViewModel extends ViewModel {
             }
         });
     }
-
+    // --- NEW: Add this method to the ViewModel ---
+    private void logReadingHistory() {
+        if (currentUserId == null || postId == null) {
+            return; // Don't log if user isn't signed in or post is invalid
+        }
+        // Set the value to a timestamp. This allows sorting by recently viewed.
+        // If the entry already exists, its timestamp will simply be updated.
+        dbRef.child("users").child(currentUserId).child("readingHistory").child(postId)
+                .setValue(ServerValue.TIMESTAMP);
+    }
     private void fetchAuthorDetails() {
-        dbRef.child("users").child(authorId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override public void onDataChange(DataSnapshot snapshot) {
+        // 在路径末尾添加 .child("profile") 来获取嵌套的用户信息
+        dbRef.child("users").child(authorId).child("profile").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                // 现在 snapshot 指向 "profile" 节点，这里的代码可以正确解析Author对象
                 _author.setValue(snapshot.getValue(Author.class));
             }
-            @Override public void onCancelled(DatabaseError error) { /* Ignore */ }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // 可以选择在这里处理错误，例如记录日志
+                Log.e("BlogDetailViewModel", "获取作者详情失败: " + error.getMessage());
+            }
         });
+        // --- 修改结束 ---
     }
 
     private void checkInteractionStates() {
@@ -112,8 +134,8 @@ public class BlogDetailViewModel extends ViewModel {
         });
 
         // Check Reading List
-        dbRef.child("users").child(currentUserId).child("readingList").child(postId).get().addOnCompleteListener(task -> {
-            newState.isInReadingList = task.isSuccessful() && task.getResult().exists();
+        dbRef.child("users").child(currentUserId).child("bookmarks").child(postId).get().addOnCompleteListener(task -> {
+            newState.isBookmarked = task.isSuccessful() && task.getResult().exists();
             _interactionState.setValue(newState);
         });
     }
@@ -126,16 +148,44 @@ public class BlogDetailViewModel extends ViewModel {
     }
 
     public void toggleFollow() {
-        boolean isCurrentlyFollowing = _interactionState.getValue().isFollowing;
+        // Make sure we have the required IDs
+        if (currentUserId == null || authorId == null) {
+            return;
+        }
+
+        // Get the current state *before* making changes
+        boolean isCurrentlyFollowing = _interactionState.getValue() != null && _interactionState.getValue().isFollowing;
+
         Map<String, Object> updates = new HashMap<>();
-        updates.put("/users/" + currentUserId + "/following/" + authorId, !isCurrentlyFollowing ? true : null);
-        updates.put("/users/" + authorId + "/followers/" + currentUserId, !isCurrentlyFollowing ? true : null);
-        dbRef.updateChildren(updates);
+
+        // CORE LOGIC:
+        // If NOT currently following, add the IDs.
+        // If IS currently following, set to null to delete the data.
+        Object valueToSet = !isCurrentlyFollowing ? true : null;
+
+        // Path 1: Add the author to the current user's "following" list
+        updates.put("/users/" + currentUserId + "/following/" + authorId, valueToSet);
+
+        // Path 2: Add the current user to the author's "followers" list
+        updates.put("/users/" + authorId + "/followers/" + currentUserId, valueToSet);
+
+        dbRef.updateChildren(updates).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                // Manually update the local UI state immediately for responsiveness
+                InteractionState newState = _interactionState.getValue();
+                if (newState != null) {
+                    newState.isFollowing = !isCurrentlyFollowing;
+                    _interactionState.setValue(newState);
+                }
+            } else {
+                // Optional: Show an error if the follow/unfollow failed
+            }
+        });
     }
 
-    public void toggleReadingList() {
+    public void toggleBookmark() {
         Map<String, Object> updates = new HashMap<>();
-        updates.put("/users/" + currentUserId + "/readingList/" + postId, ServerValue.TIMESTAMP); // Always update timestamp
+        updates.put("/users/" + currentUserId + "/bookmarks/" + postId, ServerValue.TIMESTAMP); // Always update timestamp
         dbRef.updateChildren(updates);
     }
 }

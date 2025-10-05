@@ -62,7 +62,7 @@ public class BlogDetailFragment extends Fragment {
     private void setupClickListeners() {
         binding.likeButton.setOnClickListener(v -> viewModel.toggleLike());
         binding.followButton.setOnClickListener(v -> viewModel.toggleFollow());
-        binding.addToReadingListButton.setOnClickListener(v -> viewModel.toggleReadingList());
+        binding.bookmarkButton.setOnClickListener(v -> viewModel.toggleBookmark());
     }
 
     private void observeViewModel() {
@@ -97,8 +97,8 @@ public class BlogDetailFragment extends Fragment {
             binding.likeButton.setImageResource(likeIcon);
 
             // Update Reading List Button
-            int bookmarkIcon = state.isInReadingList ? R.drawable.ic_bookmark_filled : R.drawable.ic_bookmark_add;
-            binding.addToReadingListButton.setImageResource(bookmarkIcon);
+            int bookmarkIcon = state.isBookmarked ? R.drawable.ic_bookmark_filled : R.drawable.ic_bookmark_add;
+            binding.bookmarkButton.setImageResource(bookmarkIcon);
         });
 
         viewModel.error.observe(getViewLifecycleOwner(), error -> {
