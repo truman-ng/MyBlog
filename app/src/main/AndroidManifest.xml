@@ -34,6 +34,12 @@
             android:name=".AuthActivity"
             android:exported="false"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity
+            android:name=".WriteBlogActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.MyBlog.NoActionBar" />
+
     </application>
 
 </manifest>

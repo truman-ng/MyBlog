@@ -2,8 +2,9 @@ package com.segi.student.blog;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+// Make sure to import View if it's not already there
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +38,18 @@ public class MainActivity extends AppCompatActivity {
 
         // Set up the BottomNavigationView with the NavController
         NavigationUI.setupWithNavController(navView, navController);
+
+        // --- START: ADD THIS BLOCK FOR THE FAB ---
+        // Find the FAB from the included app_bar_main.xml layout
+        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create an Intent to launch WriteBlogActivity
+                Intent intent = new Intent(MainActivity.this, WriteBlogActivity.class);
+                startActivity(intent);
+            }
+        });
+        // --- END: ADD THIS BLOCK FOR THE FAB ---
     }
 
     @Override

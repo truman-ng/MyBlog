@@ -31,4 +31,30 @@
     <string name="my_page_upload_failure">Avatar upload failed.</string>
     <string name="my_page_profile_load_failure">Failed to load profile.</string>
     <string name="my_page_permission_denied">Permission denied. Cannot select image.</string>
+    <!-- Write Blog Screen -->
+    <string name="write_blog_title">Write a Post</string>
+    <string name="title_hint">Title</string>
+    <string name="content_hint">Start writing your story here… (supports Markdown)</string>
+    <string name="add_cover_image">Add Cover Image</string>
+    <string name="change_cover_image">Change</string>
+    <string name="remove_cover_image">Remove</string>
+    <string name="tab_edit">Edit</string>
+    <string name="tab_preview">Preview</string>
+    <string name="save_draft">Save Draft</string>
+    <string name="publish">Publish</string>
+    <string name="publish_success">Post published successfully!</string>
+    <string name="draft_saved_success">Draft saved successfully.</string>
+
+    <!-- Validation & Errors -->
+    <string name="error_title_empty">Title cannot be empty.</string>
+    <string name="error_content_too_short">Content must be at least 10 characters.</string>
+    <string name="error_unknown">An unknown error occurred.</string>
+    <string name="error_upload_failed">Image upload failed. Please try again.</string>
+    <string name="error_save_failed">Failed to save. Please try again.</string>
+
+    <!-- Back Confirmation Dialog -->
+    <string name="dialog_back_title">Unsaved Changes</string>
+    <string name="dialog_back_message">Do you want to save your changes as a draft before exiting?</string>
+    <string name="dialog_save_draft_and_exit">Save &amp; Exit</string>
+    <string name="dialog_discard_and_exit">Discard &amp; Exit</string>
 </resources>
