@@ -4,7 +4,7 @@ A feature-rich native Android blog client offering a smooth experience for **wri
 
 ![M\_LOGIN.png](screenshot/M_LOGIN.png) ![M\_BLOGS.png](screenshot/M_BLOGS.png) ![M\_MY.png](screenshot/M_MY.png)
 ![M\_WRITE.png](screenshot/M_WRITE.png) ![M\_BOOKMARK.png](screenshot/M_BOOKMARK.png) ![M\_FOLLOWING.png](screenshot/M_FOLLOWING.png)
-
+![M_BLOG_DEATAIL.png](screenshot/M_BLOG_DEATAIL.png)
 ---
 
 ## ✨ Key Features
@@ -215,7 +215,7 @@ git clone https://github.com/truman-ng/MyBlog.git
 
 ![M\_LOGIN.png](screenshot/M_LOGIN.png) ![M\_BLOGS.png](screenshot/M_BLOGS.png) ![M\_MY.png](screenshot/M_MY.png)
 ![M\_WRITE.png](screenshot/M_WRITE.png) ![M\_BOOKMARK.png](screenshot/M_BOOKMARK.png) ![M\_FOLLOWING.png](screenshot/M_FOLLOWING.png)
-
+![M_BLOG_DEATAIL.png](screenshot/M_BLOG_DEATAIL.png)
 ---
 
 ## ✨ 功能亮点
