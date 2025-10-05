@@ -102,6 +102,12 @@ public class MyFragment extends Fragment {
                 NavHostFragment.findNavController(MyFragment.this)
                         .navigate(R.id.action_myFragment_to_accountSecurityFragment)
         );
+        // 假设您用于“草稿”的视图 ID 是 drafts_card
+        binding.itemDrafts.getRoot().setOnClickListener(v -> {
+            // 使用我们在 navigation.xml 中定义的 action ID 来执行导航
+            NavHostFragment.findNavController(MyFragment.this)
+                    .navigate(R.id.action_myFragment_to_draftsFragment);
+        });
     }
 
     private void observeViewModel() {

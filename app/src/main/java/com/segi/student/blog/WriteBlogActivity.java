@@ -30,6 +30,7 @@ public class WriteBlogActivity extends AppCompatActivity {
     private ActivityWriteBlogBinding binding;
     private WriteBlogViewModel viewModel;
     private Markwon markwon;
+    public static final String EXTRA_POST_ID = "EXTRA_POST_ID"; // 新增常量
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -57,6 +58,15 @@ public class WriteBlogActivity extends AppCompatActivity {
         setupClickListeners();
         observeViewModel();
         setupOnBackPressed();
+        // --- START: 新增逻辑 ---
+        // 检查 Intent 中是否包含 postId，如果包含，则加载草稿
+        if (getIntent().hasExtra(EXTRA_POST_ID)) {
+            String postId = getIntent().getStringExtra(EXTRA_POST_ID);
+            viewModel.loadDraft(postId);
+            // 可以在 Toolbar 显示“编辑草稿”
+            binding.toolbar.setTitle("Edit Draft");
+        }
+        // --- END: 新增逻辑 ---
     }
 
     private void setupToolbar() {
@@ -129,6 +139,15 @@ public class WriteBlogActivity extends AppCompatActivity {
 
     private void observeViewModel() {
         viewModel.formState.observe(this, state -> {
+            // --- START: 修改逻辑以避免覆盖加载的数据 ---
+            // 只有在 EditText 没有焦点时才更新，防止光标跳动
+            if (!binding.titleEditText.hasFocus()) {
+                binding.titleEditText.setText(state.title);
+            }
+            if (!binding.contentEditText.hasFocus()) {
+                binding.contentEditText.setText(state.contentMd);
+            }
+            // --- END: 修改逻辑 ---
             // Update cover image view
             Uri localUri = state.localCoverUri;
             String remoteUrl = state.remoteCoverUrl;

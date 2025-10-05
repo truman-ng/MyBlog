@@ -22,6 +22,10 @@
         <action
             android:id="@+id/action_myFragment_to_accountSecurityFragment"
             app:destination="@id/navigation_account_security" />
+        <!-- 新增: 前往草稿箱的 Action -->
+        <action
+            android:id="@+id/action_myFragment_to_draftsFragment"
+            app:destination="@id/navigation_drafts" />
     </fragment>
 
 
@@ -36,4 +40,11 @@
         android:name="com.segi.student.blog.ui.my.AccountSecurityFragment"
         android:label="Account &amp; Security"
         tools:layout="@layout/fragment_account_security" />
+
+    <!-- 新增: 草稿箱 Fragment 的 Destination -->
+    <fragment
+        android:id="@+id/navigation_drafts"
+        android:name="com.segi.student.blog.ui.my.DraftsFragment"
+        android:label="My Drafts"
+        tools:layout="@layout/fragment_drafts" />
 </navigation>

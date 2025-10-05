@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.core)
     implementation libs.appcompat
     implementation(libs.glide)
+    annotationProcessor libs.compiler
     implementation libs.material
     implementation libs.constraintlayout
     implementation libs.lifecycle.livedata.ktx
@@ -51,4 +52,6 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    // AndroidX Lifecycle, Navigation, etc.
+    implementation(libs.swiperefreshlayout)
 }

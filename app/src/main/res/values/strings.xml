@@ -57,4 +57,14 @@
     <string name="dialog_back_message">Do you want to save your changes as a draft before exiting?</string>
     <string name="dialog_save_draft_and_exit">Save &amp; Exit</string>
     <string name="dialog_discard_and_exit">Discard &amp; Exit</string>
+
+    <!-- Blogs Screen -->
+    <string name="blogs_title">Blogs</string>
+    <string name="empty_blogs_message">No posts yet</string>
+    <string name="empty_blogs_button_text">Write your first post</string>
+    <string name="error_loading_posts">Failed to load posts. Please try again.</string>
+    <string name="retry">Retry</string>
+    <string name="post_cover_image_description">Cover image for the blog post</string>
+    <string name="author_avatar_description">Author\'s avatar</string>
+    <string name="meta_separator" translatable="false"> • </string>
 </resources>
