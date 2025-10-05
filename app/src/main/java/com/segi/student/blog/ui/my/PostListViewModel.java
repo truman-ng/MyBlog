@@ -55,7 +55,7 @@ public class PostListViewModel extends ViewModel {
         // Determine the path to the list of Post IDs based on the mode
         String listPath = "";
         if (mode == ListMode.READING_HISTORY) {
-            listPath = "users/" + currentUserId + "/readingList";
+            listPath = "users/" + currentUserId + "/readingHistory";
         } else if (mode == ListMode.LIKES) {
             listPath = "users/" + currentUserId + "/likedPosts";
         } else if (mode == ListMode.BOOKMARKS) { // <-- NEW
