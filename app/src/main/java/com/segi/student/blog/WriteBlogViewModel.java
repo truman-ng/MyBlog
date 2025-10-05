@@ -254,6 +254,12 @@ public class WriteBlogViewModel extends ViewModel {
         postData.put("status", status.name().toLowerCase());
         postData.put("updatedAt", ServerValue.TIMESTAMP);
 
+
+        // --- START: THIS IS THE REQUIRED CHANGE ---
+        // Add the author's ID to the post data.
+        postData.put("authorId", currentUserId);
+        // --- END: THIS IS THE REQUIRED CHANGE ---
+
         if (state.postId == null) { // 仅在第一次保存时设置 createdAt
             postData.put("createdAt", ServerValue.TIMESTAMP);
         }

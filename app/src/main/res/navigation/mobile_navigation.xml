@@ -9,7 +9,12 @@
         android:id="@+id/navigation_blogs"
         android:name="com.segi.student.blog.ui.blogs.BlogsFragment"
         android:label="@string/title_blogs"
-        tools:layout="@layout/fragment_blogs" />
+        tools:layout="@layout/fragment_blogs">
+
+    <action
+        android:id="@+id/action_blogs_to_blogDetail"
+        app:destination="@id/navigation_blog_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_my"
@@ -26,8 +31,19 @@
         <action
             android:id="@+id/action_myFragment_to_draftsFragment"
             app:destination="@id/navigation_drafts" />
+
     </fragment>
 
+    <!-- NEW: Blog Detail Fragment Destination -->
+    <fragment
+        android:id="@+id/navigation_blog_detail"
+        android:name="com.segi.student.blog.ui.detail.BlogDetailFragment"
+        android:label="Post"
+        tools:layout="@layout/fragment_blog_detail">
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_edit_profile"

@@ -10,12 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.segi.student.blog.R;
 import com.segi.student.blog.WriteBlogActivity;
 import com.segi.student.blog.databinding.FragmentBlogsBinding;
+import com.segi.student.blog.ui.detail.BlogDetailFragment;
+
 import java.util.ArrayList;
 
 public class BlogsFragment extends Fragment {
@@ -84,8 +87,14 @@ public class BlogsFragment extends Fragment {
         binding.blogsRecyclerView.setAdapter(blogsAdapter);
         binding.blogsRecyclerView.setHasFixedSize(true);
 
+        // ...
         blogsAdapter.setOnItemClickListener(post -> {
-            // TODO: Navigate to Post Detail Screen
+            // Use NavController to navigate to the detail screen with the postId
+            NavHostFragment.findNavController(this)
+                    .navigate(
+                            R.id.action_blogs_to_blogDetail,
+                            BlogDetailFragment.createArgs(post.getPostId())
+                    );
         });
 
         binding.blogsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

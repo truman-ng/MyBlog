@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "345584564731",
+    "firebase_url": "https://studentblog-bd92d-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "studentblog-bd92d",
     "storage_bucket": "studentblog-bd92d.firebasestorage.app"
   },
